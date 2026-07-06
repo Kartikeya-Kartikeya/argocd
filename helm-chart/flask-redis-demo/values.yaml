@@ -4,7 +4,7 @@ flask:
   image:
     repository: flask-redis-demo
     tag: v1
-    pullPolicy: IfNotPresent
+    pullPolicy: Never
   service:
     name: flask-service
     port: 80
