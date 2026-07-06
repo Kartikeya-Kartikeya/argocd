@@ -10,7 +10,7 @@ flask:
     port: 80
     targetPort: 5000
   config:
-    APP_NAME: flask-redis-demo
+    APP_NAME: docker.io/library/flask-redis-demo
     APP_VERSION: v1
     REDIS_HOST: redis
     REDIS_PORT: "6379"
