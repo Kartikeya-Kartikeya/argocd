@@ -2,7 +2,7 @@ flask:
   name: flask-app
   replicas: 2
   image:
-    repository: docker.io/library/flask-redis-demo
+    repository: docker.io/kartikeya365/flask-redis-demo
     tag: v1
     pullPolicy: IfNotPresent
   service:
