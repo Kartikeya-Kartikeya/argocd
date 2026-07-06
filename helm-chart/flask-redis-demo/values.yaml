@@ -1,0 +1,36 @@
+flask:
+  name: flask-app
+  replicas: 2
+  image:
+    repository: flask-redis-demo
+    tag: v1
+    pullPolicy: IfNotPresent
+  service:
+    name: flask-service
+    port: 80
+    targetPort: 5000
+  config:
+    APP_NAME: flask-redis-demo
+    APP_VERSION: v1
+    REDIS_HOST: redis
+    REDIS_PORT: "6379"
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 500m
+      memory: 256Mi
+
+redis:
+  name: redis
+  image: redis:7.2-alpine
+  password: demo-password
+  storage: 1Gi
+  resources:
+    requests:
+      cpu: 100m
+      memory: 128Mi
+    limits:
+      cpu: 250m
+      memory: 256Mi

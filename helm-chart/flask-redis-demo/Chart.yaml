@@ -1,0 +1,6 @@
+apiVersion: v2
+name: flask-redis-demo
+description: A simple Flask and Redis demo for Kubernetes, Helm, Knative, and Argo CD
+type: application
+version: 0.1.0
+appVersion: "v1"

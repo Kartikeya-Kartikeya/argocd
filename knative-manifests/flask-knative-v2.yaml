@@ -1,0 +1,33 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: flask-knative
+  namespace: demo
+spec:
+  template:
+    metadata:
+      name: flask-knative-v2
+      annotations:
+        autoscaling.knative.dev/min-scale: "0"
+        autoscaling.knative.dev/max-scale: "5"
+    spec:
+      containers:
+        - image: docker.io/kartikeya365/flask-redis-demo:v2
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          envFrom:
+            - configMapRef:
+                name: flask-config
+          env:
+            - name: APP_VERSION
+              value: "v2"
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: REDIS_PASSWORD
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 5000

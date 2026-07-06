@@ -1,0 +1,10 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: flask-config
+  namespace: {{ .Release.Namespace }}
+data:
+  APP_NAME: {{ .Values.flask.config.APP_NAME | quote }}
+  APP_VERSION: {{ .Values.flask.config.APP_VERSION | quote }}
+  REDIS_HOST: {{ .Values.flask.config.REDIS_HOST | quote }}
+  REDIS_PORT: {{ .Values.flask.config.REDIS_PORT | quote }}

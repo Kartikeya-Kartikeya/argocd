@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: {{ .Values.redis.name }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    app: redis
+spec:
+  serviceName: redis-headless
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+        - name: redis
+          image: {{ .Values.redis.image | quote }}
+          ports:
+            - containerPort: 6379
+              name: redis
+          command:
+            - sh
+            - -c
+            - redis-server --requirepass "$REDIS_PASSWORD" --appendonly yes
+          env:
+            - name: REDIS_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: redis-secret
+                  key: REDIS_PASSWORD
+          resources:
+            {{- toYaml .Values.redis.resources | nindent 12 }}
+          readinessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - redis-cli -a "$REDIS_PASSWORD" ping
+            initialDelaySeconds: 5
+            periodSeconds: 5
+          livenessProbe:
+            exec:
+              command:
+                - sh
+                - -c
+                - redis-cli -a "$REDIS_PASSWORD" ping
+            initialDelaySeconds: 10
+            periodSeconds: 10
+          volumeMounts:
+            - name: redis-data
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: redis-data
+      spec:
+        accessModes:
+          - ReadWriteOnce
+        resources:
+          requests:
+            storage: {{ .Values.redis.storage }}
