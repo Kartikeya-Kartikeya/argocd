@@ -1,0 +1,12 @@
+helm template flask-demo "helm-chart/flask-redis-demo"
+helm lint "helm-chart/flask-redis-demo"
+
+helm install flask-demo "helm-chart/flask-redis-demo" \ 
+--namespace demo \ 
+--create-namespace
+
+helm list -n demo
+kubectl get all -n demo
+
+kubectl delete deployment flask-app -n demo
+kubectl delete service flask-service -n demo

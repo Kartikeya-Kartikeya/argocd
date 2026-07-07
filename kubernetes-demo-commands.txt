@@ -1,0 +1,45 @@
+kind create cluster --name platform-demo
+kubectl get nodes
+
+
+kind load docker-image flask-redis-demo:v1 --name platform-demo
+
+
+kind load docker-image flask-redis-demo:v2 --name platform-demo
+
+kubectl apply -f kubernetes-manifests/namespace.yaml -f "kubernetes-manifests/"
+
+
+kubectl get all -n demo
+
+
+
+
+
+
+kubectl get svc -n demo
+
+
+
+
+kubectl get pvc -n demo
+
+kubectl port-forward svc/flask-service 8080:80 -n demo
+curl http://localhost:8080
+
+kubectl set image deployment/flask-app flask-app=docker.io/kartikeya365/flask-redis-demo:v2 -n demo
+
+
+kubectl rollout status deployment/flask-app -n demo
+
+kubectl rollout history deployment/flask-app -n demo
+
+kubectl describe deployment flask-app -n demo | grep Image
+
+kubectl rollout undo deployment/flask-app -n demo
+
+kubectl rollout status deployment/flask-app -n demo
+
+kubectl delete -f "kubernetes-manifests/"
+
+kubectl get ns demo
