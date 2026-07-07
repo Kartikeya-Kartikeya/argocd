@@ -32,13 +32,15 @@ kubectl set image deployment/flask-app flask-app=docker.io/kartikeya365/flask-re
 
 kubectl rollout status deployment/flask-app -n demo
 
-kubectl rollout history deployment/flask-app -n demo
+
 
 kubectl describe deployment flask-app -n demo | grep Image
 
 kubectl rollout undo deployment/flask-app -n demo
 
 kubectl rollout status deployment/flask-app -n demo
+
+kubectl describe deployment flask-app -n demo | grep Image
 
 kubectl delete -f "kubernetes-manifests/"
 
