@@ -50,3 +50,9 @@ kubectl delete ksvc flask-knative -n demo
 kubectl delete namespace demo
 
 kubectl get ns demo
+
+
+kubectl get ksvc -n demo
+kubectl get configurations -n demo
+kubectl get revisions -n demo
+kubectl get routes.serving.knative.dev -n demo
