@@ -44,3 +44,9 @@ echo $HOST
 for i in {1..20}; do
   curl -s -H "Host: $HOST" http://localhost:8080/ | grep "version"
 done
+
+
+kubectl delete ksvc flask-knative -n demo
+kubectl delete namespace demo
+
+kubectl get ns demo

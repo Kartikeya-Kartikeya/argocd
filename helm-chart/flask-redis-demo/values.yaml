@@ -1,6 +1,6 @@
 flask:
   name: flask-app
-  replicas: 3
+  replicas: 1
   image:
     repository: docker.io/kartikeya365/flask-redis-demo
     tag: v1
