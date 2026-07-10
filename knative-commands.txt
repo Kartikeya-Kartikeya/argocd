@@ -29,20 +29,11 @@ kubectl get revisions -n demo
 
 
 kubectl apply -f "knative-manifests/flask-knative-traffic-split.yaml"
-kubectl patch configmap config-domain \
-  -n knative-serving \
-  --type merge \
-  -p '{"data":{"172.18.0.2.sslip.io":""}}'
-kubectl describe ksvc flask-knative -n demo
 
 
-kubectl port-forward -n kourier-system svc/kourier 8080:80
-
-HOST=$(kubectl get ksvc flask-knative -n demo -o jsonpath='{.status.url}' | sed 's|http://||')
-echo $HOST
 
 for i in {1..20}; do
-  curl -s -H "Host: $HOST" http://localhost:8080/ | grep "version"
+  curl http://flask-knative.demo.34.93.63.112.sslip.io
 done
 
 
@@ -56,3 +47,42 @@ kubectl get ksvc -n demo
 kubectl get configurations -n demo
 kubectl get revisions -n demo
 kubectl get routes.serving.knative.dev -n demo
+
+
+
+
+
+kubectl rollout restart deployment -n knative-serving -> restart 
+
+for deleting everything: 
+
+
+
+kubectl delete -f https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-default-domain.yaml --ignore-not-found=true
+
+
+kubectl delete -f https://github.com/knative/net-kourier/releases/download/knative-v1.15.0/kourier.yaml --ignore-not-found=true
+
+
+kubectl delete -f https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-core.yaml --ignore-not-found=true
+
+
+kubectl delete -f https://github.com/knative/serving/releases/download/knative-v1.15.0/serving-crds.yaml --ignore-not-found=true
+
+
+kubectl delete namespace knative-serving kourier-system --ignore-not-found=true
+
+
+
+
+if not sslip.io
+
+kubectl patch configmap config-domain \
+  -n knative-serving \
+  --type merge \
+  -p '{"data":{"172.18.0.2.sslip.io":""}}'
+kubectl describe ksvc flask-knative -n demo
+
+refresh:
+
+kubectl rollout restart deployment controller -n knative-serving

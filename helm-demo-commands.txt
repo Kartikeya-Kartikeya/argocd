@@ -10,3 +10,7 @@ kubectl get all -n demo
 
 kubectl delete deployment flask-app -n demo
 kubectl delete service flask-service -n demo
+
+
+
+helm upgrade name_of_release path_to_chart -n demo

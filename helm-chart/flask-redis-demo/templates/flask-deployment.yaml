@@ -42,11 +42,11 @@ spec:
             httpGet:
               path: /ready
               port: 5000
-            initialDelaySeconds: 5
+            initialDelaySeconds: 15
             periodSeconds: 5
           livenessProbe:
             httpGet:
               path: /health
               port: 5000
-            initialDelaySeconds: 10
+            initialDelaySeconds: 15
             periodSeconds: 10

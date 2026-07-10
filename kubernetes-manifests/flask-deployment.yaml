@@ -23,7 +23,7 @@ spec:
     spec:
       containers:
         - name: flask-app
-          image: docker.io/kartikeya365/flask-redis-demo:v1
+          image: asia-south1-docker.pkg.dev/compact-arena-501908-v9/flask-demo-repo/flask-redis-demo:v1
           imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 5000

@@ -1,8 +1,8 @@
 flask:
   name: flask-app
-  replicas: 4
+  replicas: 3
   image:
-    repository: docker.io/kartikeya365/flask-redis-demo
+    repository: asia-south1-docker.pkg.dev/compact-arena-501908-v9/flask-demo-repo/flask-redis-demo
     tag: v1
     pullPolicy: IfNotPresent
   service:

@@ -1,11 +1,8 @@
-kind create cluster --name platform-demo
+
 kubectl get nodes
 
 
-kind load docker-image flask-redis-demo:v1 --name platform-demo
 
-
-kind load docker-image flask-redis-demo:v2 --name platform-demo
 
 kubectl apply -f kubernetes-manifests/namespace.yaml -f "kubernetes-manifests/"
 
@@ -24,10 +21,11 @@ kubectl get svc -n demo
 
 kubectl get pvc -n demo
 
-kubectl port-forward svc/flask-service 8080:80 -n demo
-curl http://localhost:8080
+kubectl get statefulset -n demo
 
-kubectl set image deployment/flask-app flask-app=docker.io/kartikeya365/flask-redis-demo:v2 -n demo
+curl the external IP of the flask-pod 
+
+kubectl set image deployment/flask-app flask-app=asia-south1-docker.pkg.dev/compact-arena-501908-v9/flask-demo-repo/flask-redis-demo:v2 -n demo
 
 
 kubectl rollout status deployment/flask-app -n demo
@@ -45,3 +43,7 @@ kubectl describe deployment flask-app -n demo | grep Image
 kubectl delete -f "kubernetes-manifests/"
 
 kubectl get ns demo
+
+
+
+kubectl config view --minify --output 'jsonpath={..namespace}'
