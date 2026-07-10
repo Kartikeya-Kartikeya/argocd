@@ -1,6 +1,6 @@
 flask:
   name: flask-app
-  replicas: 3
+  replicas: 1
   image:
     repository: asia-south1-docker.pkg.dev/compact-arena-501908-v9/flask-demo-repo/flask-redis-demo
     tag: v1
