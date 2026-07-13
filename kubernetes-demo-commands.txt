@@ -1,3 +1,5 @@
+gcloud container clusters list
+
 
 kubectl get nodes
 
@@ -10,10 +12,6 @@ kubectl apply -f kubernetes-manifests/namespace.yaml -f "kubernetes-manifests/"
 kubectl get all -n demo
 
 
-
-
-
-
 kubectl get svc -n demo
 
 
@@ -23,7 +21,6 @@ kubectl get pvc -n demo
 
 kubectl get statefulset -n demo
 
-curl the external IP of the flask-pod 
 
 kubectl set image deployment/flask-app flask-app=asia-south1-docker.pkg.dev/compact-arena-501908-v9/flask-demo-repo/flask-redis-demo:v2 -n demo
 

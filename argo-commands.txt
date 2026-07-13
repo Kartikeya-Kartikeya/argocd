@@ -22,4 +22,3 @@ kubectl delete application flask-redis-demo -n argocd
 
 kubectl delete namespace argocd
 
-kind delete cluster --name platform-demo
